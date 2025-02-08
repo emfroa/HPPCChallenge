@@ -4,6 +4,7 @@ MozMusic := $.File_Music.MozDS;
 
 //display the first 150 records
 
+//Moz_MusicDs:
 OUTPUT(CHOOSEN(MozMusic, 150), NAMED('Moz_MusicDS'));
 
 //*********************************************************************************
@@ -17,7 +18,8 @@ OUTPUT(CHOOSEN(MozMusic, 150), NAMED('Moz_MusicDS'));
 //Challenge: 
 //Count all the records in the dataset:
 
-COUNT(MozMusic);
+//CountAllRecords
+OUTPUT(COUNT(MozMusic), NAMED('CountAllRecords'));
 
 //Result: Total count is 136510
 
@@ -26,8 +28,9 @@ COUNT(MozMusic);
 //Challenge: 
 
 //Sort by "name",  and display (OUTPUT) the first 50(Hint: use CHOOSEN):
-
 //You should see a lot of songs by NSync 
+
+//Sort:
 sortMozMusic := SORT(MozMusic, name);
 OUTPUT(CHOOSEN(sortMozMusic, 50), NAMED('Sort'));
 
@@ -38,7 +41,8 @@ OUTPUT(CHOOSEN(sortMozMusic, 50), NAMED('Sort'));
 //Challenge: 
 //Count total songs in the "Rock" genre and display number:
 
-COUNT(MOZMUSIC(genre='Rock'));
+//Result 4
+OUTPUT(COUNT(MOZMUSIC(genre='Rock')), NAMED('Rock_Genre'));
 //Result should have 12821 Rock songs
 
 //Display your Rock songs (OUTPUT):
@@ -54,10 +58,21 @@ COUNT(MOZMUSIC(genre='Rock'));
 
 // Count and display total
 //Result should have 127 songs 
-//COUNT(MOZMUSIC(name = 'Depeche_Mode' BETWEEN releasedate BETWEEN ));
+
+//Result 5
+file := COUNT(MOZMUSIC(name = 'Depeche_Mode' AND releasedate BETWEEN '1980' AND '1989'));
+OUTPUT(file, NAMED('NumberOfDepeche_Mode'));
 
 //Bonus points: filter out duplicate tracks (Hint: look at DEDUP):
 
+somefile := MOZMUSIC(name = 'Depeche_Mode' AND releasedate BETWEEN '1980' AND '1989');
+duplicateFile := DEDUP(somefile, title); //filter out the title
+
+//filterOutDupulicate
+OUTPUT(duplicateFile, NAMED('filterOutDepulicate'));
+
+//Result 7
+OUTPUT(COUNT(duplicateFile), NAMED('numberOFFilterDuplicates'));
 
 //*********************************************************************************
 //*********************************************************************************
@@ -65,10 +80,17 @@ COUNT(MOZMUSIC(genre='Rock'));
 //Who sang the song "My Way"?
 //Filter for "My Way" tracktitle
 
+myWay := MOZMUSIC(tracktitle = 'My Way');
+duplicateArtistMyWay := DEDUP(myWay, name);
+countArtistMyWay := COUNT(duplicateArtistMyWay);
+countMyWay := COUNT(myWay);
+
+myWayArtist := DATASET(countArtistMyWay, TRANSFORM({String name}, SELF.name := duplicateArtistMyWay[COUNTER].name));
+OUTPUT(myWayArtist, Named('List_Artist_made_MyWay'));
+
 // Result should have 136 records 
-
 //Display count and result 
-
+OUTPUT(countMyWay, NAMED('Number_OF_My_Way'));
 
 //*********************************************************************************
 //*********************************************************************************
@@ -83,7 +105,15 @@ COUNT(MOZMUSIC(genre='Rock'));
 
 //Display the result
 
-//Longest track title is by the "The Brand New Heavies"               
+//Longest track title is by the "The Brand New Heavies"    
+
+cdFile := MozMusic(formats = 'CD');
+maxcdMusic := MAX(MozMusic, tracktitle);
+trackCDFILE := cdFile(tracktitle = maxcdMusic);
+
+// Output the song(s) with the longest tracktitle
+OUTPUT(trackCDFILE, NAMED('LongestTrackTitle'));
+
 
 
 //*********************************************************************************
@@ -97,19 +127,17 @@ COUNT(MOZMUSIC(genre='Rock'));
 //Display all songs produced by "U2" , SORT it by title.
 
 //Filter track by artist
-
-
 //Sort the result by tracktitle
-
+u2_songs := MozMusic(name = 'U2');
+sortTitleU2 := SORT(u2_songs, title, tracktitle);
 
 //Output the result
-
+OUTPUT(sortTitleU2, NAMED('Sort_U2_Songs'));
 
 //Count result 
 
-
 //Result has 190 records
-
+OUTPUT(COUNT(sortTitleU2), NAMED('Number_U2_Track'));
 
 //*********************************************************************************
 //*********************************************************************************
@@ -118,6 +146,8 @@ COUNT(MOZMUSIC(genre='Rock'));
 
 //Hint: Think of the filter as "not blank" 
 
+greatMusician := MozMusic(guestmusicians != '');
+
 //Filter for "guestmusicians"
 
 
@@ -125,6 +155,9 @@ COUNT(MOZMUSIC(genre='Rock'));
                              
 
 //Result should be 44588 songs  
+OUTPUT(COUNT(greatMusician), NAMED('number_Of_Musician'));
+
+
 
 
 //*********************************************************************************
