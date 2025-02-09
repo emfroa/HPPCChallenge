@@ -156,11 +156,13 @@ OUTPUT(COUNT(coldPlay), NAMED('CountColdplay'));
 //Hint: (Duration_ms BETWEEN 200000 AND 250000)
 
 //Filter for required conditions
-                          
+
 
 //Count result (should be 2153):
 
 //Display result:
+
+
 
 //*********************************************************************************
 //*********************************************************************************

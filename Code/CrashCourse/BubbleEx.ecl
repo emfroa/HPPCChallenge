@@ -1,4 +1,5 @@
-﻿//To run this example, you need to have the Visualization bundle installed.
+﻿#OPTION(‘obfuscateOutput’, TRUE);
+//To run this example, you need to have the Visualization bundle installed.
 //See: https://github.com/hpcc-systems/Visualizer
 IMPORT Visualizer;
 

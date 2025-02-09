@@ -193,12 +193,9 @@ filtered_tracks := PROJECT(MozMusic, recordNew(LEFT));
 
 //Use PROJECT, to loop through your music dataset
 
-
-
 // Display result  
       
 OUTPUT(filtered_tracks, NAMED('new_recordset'));
-
 
 //*********************************************************************************
 //*********************************************************************************
@@ -212,14 +209,12 @@ OUTPUT(filtered_tracks, NAMED('new_recordset'));
 //Display number of songs per "Genre", display genre name and count for each 
 
 //Hint: All you need is a 2 field TABLE using cross-tab
-
 //Display the TABLE result      
 
-
 //Count and display total records in TABLE
-
-
 //Result has 2 fields, Genre and TotalSongs, count is 1000
+
+
 
 //*********************************************************************************
 //*********************************************************************************
