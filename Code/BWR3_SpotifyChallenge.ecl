@@ -1,4 +1,5 @@
-﻿IMPORT $;
+﻿#OPTION('obfuscateOutput', TRUE);
+IMPORT $;
 SpotMusic := $.File_Music.SpotDS;
 
 //display the first 150 records
@@ -20,14 +21,13 @@ OUTPUT(CHOOSEN(SpotMusic, 150), NAMED('Raw_MusicDS'));
  
 
 //Sort by "genre" (See SORT function)
-
+sortGenre := SORT(SpotMusic, genre);
 
 //Display them: (See OUTPUT)
-
-
+OUTPUT(sortGenre, NAMED('SortByGenre'));
 //Count and display result (See COUNT)
 //Result: Total count is 1159764:
-
+OUTPUT(COUNT(sortGenre), NAMED('TotalSongSpotify'));
 
 //*********************************************************************************
 //*********************************************************************************
@@ -39,6 +39,8 @@ OUTPUT(CHOOSEN(SpotMusic, 150), NAMED('Raw_MusicDS'));
 
 //Count total garage songs
 //Result should have 17123 records:
+garageGenre := SpotMusic(genre = 'garage');
+OUTPUT(COUNT(garageGenre), NAMED('numberGarageSongs'));
 
 
 //*********************************************************************************
@@ -51,6 +53,9 @@ OUTPUT(CHOOSEN(SpotMusic, 150), NAMED('Raw_MusicDS'));
 
 
 //Count and output total - should be 35 
+
+princeMusic := SpotMusic(artist_name = 'Prince' AND year = 2001);
+OUTPUT(COUNT(princeMusic), NAMED('NumberPrinceMusic'));
 
 
 
@@ -65,6 +70,9 @@ OUTPUT(CHOOSEN(SpotMusic, 150), NAMED('Raw_MusicDS'));
 //Filter for "Temptation to Exist" (name is case sensitive)
 
 //Display result 
+
+singTemp := SpotMusic(track_name = 'Temptation to Exist');
+OUTPUT(singTemp, NAMED('SangTemptation'));
 
 
 //*********************************************************************************
@@ -83,9 +91,11 @@ OUTPUT(CHOOSEN(SpotMusic, 150), NAMED('Raw_MusicDS'));
 
 //Sort dataset by Artist_name, and track_name:
 
+sortName := SORT(SpotMusic, track_name);
+sortTrack := SORT(sortName, artist_name);
 
 //Output here:
-
+OUTPUT(sortTrack, NAMED('Sort_Name_Track'));
 
 
 //*********************************************************************************
@@ -101,6 +111,10 @@ OUTPUT(CHOOSEN(SpotMusic, 150), NAMED('Raw_MusicDS'));
 
 
 //Display the result - should be "Flowers" by Miley Cyrus
+
+maxcdMusic := MAX(SpotMusic, popularity);
+popularP := SpotMusic(popularity = maxcdMusic);
+OUTPUT(popularP, NAMED('popular'));
 
 
 

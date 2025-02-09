@@ -21,17 +21,22 @@ OUTPUT(CHOOSEN(MSDMusic, 150), NAMED('Raw_MusicDS'));
 
 
 //display the first 50
-
+reverseSort := SORT(MSDMusic, -year);
+OUTPUT(CHOOSEN(reverseSort, 50), NAMED('reverseSort'));
 
 //Count and display result
 
+OUTPUT(COUNT(reverseSort), NAMED('CountReverseSort'));
 
 //*********************************************************************************
 //*********************************************************************************
 //Challenge: 
 //Display first 50 songs by of year 2010 and then count the total 
+year2010 := MSDMusic(year = 2010);
+OUTPUT(CHOOSEN(year2010, 50), NAMED('year2010'));
 
 //Result should have 9397 songs for 2010
+OUTPUT(COUNT(year2010), NAMED('countYear2010'));
 
 //Filter for 2010 and display the first 50
 

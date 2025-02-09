@@ -173,16 +173,32 @@ OUTPUT(COUNT(greatMusician), NAMED('number_Of_Musician'));
 
 //Hint: First create your new RECORD layout  
 
-
+rec := RECORD
+    String track;
+    STRING release;
+    STRING artist;
+    STRING year;
+END;
 
 //Next: Standalone Transform - use TRANSFORM for new fields.
+rec recordNew(MozMusic L) := TRANSFORM
+    SELF.track := L.tracktitle,
+    SELF.release := L.title,
+    SELF.artist := L.name,
+    SELF.year := L.releasedate;
+END;
+
+filtered_tracks := PROJECT(MozMusic, recordNew(LEFT));
 
 
 //Use PROJECT, to loop through your music dataset
 
 
+
 // Display result  
       
+OUTPUT(filtered_tracks, NAMED('new_recordset'));
+
 
 //*********************************************************************************
 //*********************************************************************************
