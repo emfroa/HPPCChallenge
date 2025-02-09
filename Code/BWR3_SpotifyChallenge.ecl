@@ -131,6 +131,9 @@ OUTPUT(popularP, NAMED('popular'));
 //"Popularity" greater or equal to 75 ( >= 75 ) , SORT it by title.
 //Count the total result
 
+coldPlay := SpotMusic(artist_name = 'Coldplay' AND popularity >= 75);
+sortColdplay := SORT(coldPlay, track_name);
+
 //Result has 9 records
 
 //Get songs by defined conditions
@@ -140,10 +143,10 @@ OUTPUT(popularP, NAMED('popular'));
 
 
 //Output the result
-
+OUTPUT(sortColdplay, NAMED('SortedAndFilterColdplay'));
 
 //Count and output result 
-
+OUTPUT(COUNT(coldPlay), NAMED('CountColdplay'));
 
 //*********************************************************************************
 //*********************************************************************************

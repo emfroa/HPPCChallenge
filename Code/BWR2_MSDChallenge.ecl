@@ -50,7 +50,8 @@ OUTPUT(COUNT(year2010), NAMED('countYear2010'));
 //Count how many songs was produced by "Prince" in 1982
 
 //Result should have 4 counts
-
+producePrince := MSDMusic(artist_name = 'Prince' AND year = 1982);
+OUTPUT(COUNT(producePrince), NAMED('countPrince'));
 //Filter ds for "Prince" AND 1982
 
 //Count and print total 
@@ -64,6 +65,8 @@ OUTPUT(COUNT(year2010), NAMED('countYear2010'));
 
 //Filter for "Into Temptation"
 
+sangTemptation := MSDMusic(title = 'Into Temptation');
+OUTPUT(sangTemptation, NAMED('WhoSangTemptation'));
 
 //Display result 
 
@@ -79,6 +82,9 @@ OUTPUT(COUNT(year2010), NAMED('countYear2010'));
 
 
 //Output the first 100
+sortTitle := SORT(MSDMusic, title);
+sortArtist := SORT(sortTitle, artist_name);
+OUTPUT(sortArtist, NAMED('SortedTitleArtist'));
 
 
 //*********************************************************************************
@@ -93,9 +99,14 @@ OUTPUT(COUNT(year2010), NAMED('countYear2010'));
 
 
 //Filter dataset for the maxHot value
-
+maxHot := MAX(MSDMusic, song_hotness);
 
 //Display the result
+filterSongHot := MSDMusic(song_hotness = maxHot);
+hottestSong := Sort(filterSongHot, year);
+
+OUTPUT(hottestSong, NAMED('HottestSongYear'));
+
 
 
 //*********************************************************************************
